@@ -1,0 +1,57 @@
+Finding from reading the book:
+Linux:
+Doing right shift on a integer variable is arithmatic but doing it on
+a literal value is logical. Does that mean it is considered unsinged ?
+
+C Standard:
+C Standard doesn’t specify a particular representation of signed numbers.
+C Standard doesn’t specify conversion rules b/w signed and unsigned numbers.
+When an operation is performed where one operand is signed and other unsigned - signed one is graduated to unsigned.
+
+
+1. Write a program that displays bit-pattern of a given variable.
+2. Endianness of this statement:
+   printf("%c\n", i);
+   /home/srai/Dropbox/new_horoizens/devel/CS_APP/int_as_char.c:5
+    int i = 0xaabbccdd;
+  400539:	c7 45 fc dd cc bb aa 	mov    DWORD PTR [rbp-0x4],0xaabbccdd
+/home/srai/Dropbox/new_horoizens/devel/CS_APP/int_as_char.c:6
+    printf("%c\n", i);
+  400540:	8b 45 fc             	mov    eax,DWORD PTR [rbp-0x4]
+  400543:	89 c6                	mov    esi,eax
+  400545:	bf e4 05 40 00       	mov    edi,0x4005e4
+  40054a:	b8 00 00 00 00       	mov    eax,0x0
+  40054f:	e8 ac fe ff ff       	call   400400 <printf@plt>
+3. More interview questions realted to {big,little}-endian ?
+4. Why string are more portable than other data types across platforms ?
+5. How printf prints a pointer address ?
+/home/srai/Dropbox/new_horoizens/devel/CS_APP/main.c:8: printf("%p\n", "hello");
+    printf("%p\n", "hello");
+  4006ab:	be ba 07 40 00       	mov    esi,0x4007ba
+  4006b0:	bf c0 07 40 00       	mov    edi,0x4007c0
+  4006b5:	b8 00 00 00 00       	mov    eax,0x0
+  4006ba:	e8 41 fe ff ff       	call   400500 <printf@plt>
+6. Implementing sizeof:
+   Idea 1: As a macro
+   #define SIZE(type)      (size_t)((type *)100 + 1) - (size_t)((type *)100)
+   What does this code means ? 100 + 1 Why 100 ?
+7. Figure out why -> operator doesn't result in crash for offetof macro ?
+8. How sizeof works at runtime for dynamic allocated array ?
+9. Why it only left shifts by 16 if you try to left shift by 48 on a 32 bit value ?
+   left_shift.c
+   Answer: No. of bytes with which to shift is calculated by k mod w where k is no.
+   of bytes to shift and w is word size. 48 mod 32 is 16.
+10. Why suffix u at the end of the no. in this expression
+    unsigned int uval = 0xFEDCBA98u >> 40;
+   
+Other Notes:
+Web Aside: DATA:BOOL
+Book: https://archive.org/stream/investigationofl00boolrich#page/n11/mode/2up
+An investigation of the laws of though by George Boole:
+https://people.cs.clemson.edu/~ccorsi/kyouko/qemu-tech.html
+
+DATA:BOOL Notes
+x ^ (~0) = ~x
+x ^ (~x) = ~0
+x ^ (0) = x
+x ^ x = 0
