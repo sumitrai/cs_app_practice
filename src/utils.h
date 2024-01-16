@@ -23,4 +23,6 @@
     
 #define PRINT_SIZEOF(var) printf("%-25s" SIZEOF_PRINT_FMT "\n", #var, sizeof(var))
 
+#define PRINT_INFO(fmt, ...)   printf("%s: %s: " fmt, __FILE__, __FUNCTION__, ##__VA_ARGS__)
+
 #endif
